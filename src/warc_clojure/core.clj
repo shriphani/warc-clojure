@@ -40,3 +40,11 @@
 (defn is-response-type?
   [record]
   (= "application/http; msgtype=response" (get-response-type record)))
+
+(defn get-response-records-seq
+  "Given a warc-reader, this returns a set of records that are of the type 'response'"
+  [warc-reader]
+  (filter 
+    (fn [record-as-map]
+      (= (:warc-type record-as-map) "application/http; msgtype=response"))
+    (get-records-seq warc-reader)))
