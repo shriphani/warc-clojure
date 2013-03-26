@@ -46,5 +46,5 @@
   [warc-reader]
   (filter 
     (fn [record-as-map]
-      (= (:warc-type record-as-map) "application/http; msgtype=response"))
+      (= (:warc-type record-as-map) "response"))
     (get-records-seq warc-reader)))

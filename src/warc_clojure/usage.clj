@@ -5,4 +5,4 @@
 
 (defn -main
   [& args]
-  (first (core/get-records-seq (core/get-warc-reader (first (second (cli args)))))))
+  (first (core/get-response-records-seq (core/get-warc-reader (first (second (cli args)))))))
