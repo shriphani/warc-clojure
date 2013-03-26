@@ -25,7 +25,7 @@
   "The warc records in the file are returned as a sequence.
   The map above is returned"
   [warc-reader]
-  (take-while identity (repeatedly #(cast-record-as-map (.getNextRecord warc-reader)))))
+  (map (fn [record] (cast-record-as-map record)) (take-while identity (repeatedly #(.getNextRecord warc-reader)))))
   
 (defn get-records-uncast-seq
   "Get the original warc-record object itself in case you want to use it"

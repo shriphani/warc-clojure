@@ -5,4 +5,4 @@
 
 (defn -main
   [& args]
-  (first (core/get-response-records-seq (core/get-warc-reader (first (second (cli args)))))))
+  (map (fn [record] (:content-length record)) (core/get-response-records-seq (core/get-warc-reader (first (second (cli args)))))))
