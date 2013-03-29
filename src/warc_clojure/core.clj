@@ -11,6 +11,18 @@
   (WarcReaderFactory/getReader (io/input-stream warc-gz-filename)))
 
 (defn cast-record-as-map
+  "
+    Takes a default jwat-warc object
+    and builds a map out of it. The map fields are:
+      - content-length
+      - content-type
+      - filename
+      - target-uri
+      - target-uri-str
+      - warc-type
+      - payload-stream
+    Each of the fields are self-explanatory
+  "
   [record]
     {:content-length (.contentLength (.header record))
      :content-type (.contentType (.header record))
@@ -37,10 +49,6 @@
   [record]
   (.contentTypeStr (.header record)))
 
-(defn is-response-type?
-  [record]
-  (= "application/http; msgtype=response" (get-response-type record)))
-
 (defn get-response-records-seq
   "Given a warc-reader, this returns a set of records that are of the type 'response'"
   [warc-reader]
@@ -48,3 +56,12 @@
     (fn [record-as-map]
       (= (:warc-type record-as-map) "response"))
     (get-records-seq warc-reader)))
+
+(defn get-http-records-seq
+  "Produces a list of http records in the warc-gz file"
+  [warc-reader]
+  (filter
+    (fn [record-as-map]
+      (= "http" (.getScheme (java.net.URI. (:target-uri-str record-as-map)))))
+    (get-response-records-seq warc-reader)))
+

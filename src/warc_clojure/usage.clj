@@ -17,7 +17,8 @@
     (print "Warc Type:\t" (:warc-type record)) "\n")
   (when (:payload items-bool-map)
     (print "Payload:\n" (slurp (:payload-stream record))))
-  (println "############################################"))
+  (when (:print-separator items-bool-map)
+  	(println "############################################")))
 
 
 (defn -main
@@ -28,8 +29,9 @@
   					  ["--date" "Prints out the date of download" :flag true]
   					  ["--target-uri" "Prints out the url of the warc file" :flag true]
   					  ["--warc-type" "Prints out the warc-type field" :flag true]
-  					  ["--payload" "Prints out the html stream"])]
+  					  ["--payload" "Prints out the html stream"]
+  					  ["--print-separator" "Prints a separator between records" :flag true])]
 
-  		(doseq [record (core/get-response-records-seq 
+  		(doseq [record (core/get-http-records-seq 
 							(core/get-warc-reader warc-gz-filename))]
       		(print-items record args-vector))))
