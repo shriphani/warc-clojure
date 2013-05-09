@@ -7,4 +7,4 @@
                  [org.jwat/jwat-warc "1.0.0"]
                  [org.clojure/tools.cli "0.2.2"]
                  [clojurewerkz/urly "1.0.0"]]
-  :main warc-clojure.usage)  
+  :main warc-clojure.usage)

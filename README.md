@@ -1,5 +1,7 @@
 # warc-clojure
 
+![CI Build](https://travis-ci.org/shriphani/warc-clojure.png?branch=master)
+
 warc-clojure is a clojure wrapper around jwat-warc. It converts warc.gz files into
 clojure sequences you can work with. warc.gz files are the standard format for archiving 
 large datasets like large-scale web crawls. The LemurProject at CMU uses the warc.gz format
