@@ -18,20 +18,21 @@
   (when (:payload items-bool-map)
     (print "Payload:\n" (slurp (:payload-stream record))))
   (when (:print-separator items-bool-map)
-  	(println "############################################")))
+    (println "############################################")))
 
 
 (defn -main
   [& args]
-  (let [[args-vector [warc-gz-filename] banner] 
-  			(cli args ["--content-length" "Prints out the sizes of each file" :flag true]
-  					  ["--content-type" "Prints out the content type" :flag true]
-  					  ["--date" "Prints out the date of download" :flag true]
-  					  ["--target-uri" "Prints out the url of the warc file" :flag true]
-  					  ["--warc-type" "Prints out the warc-type field" :flag true]
-  					  ["--payload" "Prints out the html stream"]
-  					  ["--print-separator" "Prints a separator between records" :flag true])]
-
-  		(doseq [record (core/get-http-records-seq 
-							(core/get-warc-reader warc-gz-filename))]
-      		(print-items record args-vector))))
+  (let [[optional [warc-gz-filename] banner] 
+        (cli args
+             ["--content-length" "Prints out the sizes of each file" :flag true]
+             ["--content-type" "Prints out the content type" :flag true]
+             ["--date" "Prints out the date of download" :flag true]
+             ["--target-uri" "Prints out the url of the warc file" :flag true]
+             ["--warc-type" "Prints out the warc-type field" :flag true]
+             ["--payload" "Prints out the html stream" :flag true]
+             ["--print-separator" "Prints a separator between records" :flag true])]
+    
+    (doseq [record (core/get-http-records-seq 
+                    (core/get-warc-reader warc-gz-filename))]
+      (print-items record optional))))
