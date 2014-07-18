@@ -1,8 +1,6 @@
 (ns warc-clojure.core
-    (:require [clojure.java.io :as io]))
-
-(import '(org.jwat.warc WarcRecord WarcReader WarcReaderFactory))
-
+  (:require [clojure.java.io :as io])
+  (:import [org.jwat.warc WarcRecord WarcReader WarcReaderFactory]))
 
 (defn get-warc-reader
   "Given a location of a .warc.gz file on disk, this
@@ -24,14 +22,14 @@
     Each of the fields are self-explanatory
   "
   [record]
-    {:content-length (.contentLength (.header record))
-     :content-type (.contentType (.header record))
-     :date (.warcDate (.header record))
-     :filename (.warcFilename (.header record))
-     :target-uri (.warcTargetUriUri (.header record))
-     :target-uri-str (.warcTargetUriStr (.header record))
-     :warc-type (.warcTypeStr (.header record))
-     :payload-stream (.getPayloadContent record)})
+  {:content-length (.contentLength (.header record))
+   :content-type (.contentType (.header record))
+   :date (.warcDate (.header record))
+   :filename (.warcFilename (.header record))
+   :target-uri (.warcTargetUriUri (.header record))
+   :target-uri-str (.warcTargetUriStr (.header record))
+   :warc-type (.warcTypeStr (.header record))
+   :payload-stream (.getPayloadContent record)})
 
 (defn get-records-seq
   "The warc records in the file are returned as a sequence.
@@ -53,15 +51,15 @@
   "Given a warc-reader, this returns a set of records that are of the type 'response'"
   [warc-reader]
   (filter 
-    (fn [record-as-map]
-      (= (:warc-type record-as-map) "response"))
-    (get-records-seq warc-reader)))
+   (fn [record-as-map]
+     (= (:warc-type record-as-map) "response"))
+   (get-records-seq warc-reader)))
 
 (defn get-http-records-seq
   "Produces a list of http records in the warc-gz file"
   [warc-reader]
   (filter
-    (fn [record-as-map]
-      (= "http" (.getScheme (java.net.URI. (:target-uri-str record-as-map)))))
-    (get-response-records-seq warc-reader)))
+   (fn [record-as-map]
+     (= "http" (.getScheme (java.net.URI. (:target-uri-str record-as-map)))))
+   (get-response-records-seq warc-reader)))
 

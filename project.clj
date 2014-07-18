@@ -1,4 +1,4 @@
-(defproject org.clojars.shriphani/warc-clojure "0.2.3-SNAPSHOT"
+(defproject org.clojars.shriphani/warc-clojure "0.2.3"
   :description "Wrapper around the jwat-warc Java Library"
   :url "https://github.com/shriphani/warc-clojure"
   :license {:name "MIT License"
