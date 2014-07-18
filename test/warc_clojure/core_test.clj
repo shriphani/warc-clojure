@@ -2,6 +2,13 @@
   (:use clojure.test
         warc-clojure.core))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(def test-file "crlf_at_1k_boundary.warc.gz")
+
+(deftest warc-reader-test
+  (testing "Read a warc file and fetch records"
+    (is
+     (-> test-file
+         get-warc-reader
+         get-response-records-seq
+         count
+         (= 1)))))
