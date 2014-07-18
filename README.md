@@ -14,7 +14,7 @@ Include in
 * leiningen:
 
 ```clojure
-[warc-clojure "0.2.5"]
+[warc-clojure "0.2.6"]
 ```
 
 * maven:
@@ -23,14 +23,14 @@ Include in
 <dependency>
   <groupId>warc-clojure</groupId>
   <artifactId>warc-clojure</artifactId>
-  <version>0.2.5</version>
+  <version>0.2.6</version>
 </dependency>
 ```
 
 * gradle:
 
 ```
-compile "warc-clojure:warc-clojure:0.2.5"
+compile "warc-clojure:warc-clojure:0.2.6"
 ```
 
 Right now just reading is supported. The focus is on converting a warc
